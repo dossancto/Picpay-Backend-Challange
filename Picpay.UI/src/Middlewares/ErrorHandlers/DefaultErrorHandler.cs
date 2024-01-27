@@ -1,3 +1,4 @@
+using Picpay.Application.Domain.Exceptions;
 namespace Picpay.UI.Controllers.Middlewares.ErrorHandlers;
 
 public class DefaultErrorHandler
@@ -13,24 +14,21 @@ public class DefaultErrorHandler
 
     public async Task Invoke(HttpContext context)
     {
-        // try
-        // {
-        await next(context);
-        // }
-        // catch (ValidationException e)
-        // {
-        //     context.Response.StatusCode = 400;
+        try
+        {
+            await next(context);
+        }
+        catch (NotFoundException e)
+        {
+            context.Response.StatusCode = 404;
 
-        //     var ers = e.ListErrorList();
+            var body = new
+            {
+                Message = e.Message,
+            };
 
-        //     var body = new
-        //     {
-        //         Message = e.Message,
-        //         Errors = ers
-        //     };
-
-        //     await context.Response.WriteAsJsonAsync(body);
-        // }
+            await context.Response.WriteAsJsonAsync(body);
+        }
     }
 }
 

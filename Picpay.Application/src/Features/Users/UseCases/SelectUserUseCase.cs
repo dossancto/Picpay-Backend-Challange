@@ -1,4 +1,4 @@
-
+using Picpay.Application.Domain.Exceptions;
 using Picpay.Application.Features.Users.Data;
 using Picpay.Application.Features.Users.Entities;
 
@@ -39,8 +39,8 @@ public class SelectUserUseCase
     /// Find a user seaerching for Email, CPF or Id
     /// </summary>
     /// <returns>The searched user, or null if not found.</returns>
-    public Task<User?> ByContact(string contact)
-    => _UserRepository.FindByContact(contact);
+    public async Task<User> ByContact(string contact)
+    => await _UserRepository.FindByContact(contact) ?? throw new NotFoundException(@$"User with contact ""{contact}"" not found. ");
 }
 
 

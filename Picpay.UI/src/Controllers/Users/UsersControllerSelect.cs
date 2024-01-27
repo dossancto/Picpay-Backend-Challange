@@ -22,17 +22,18 @@ public partial class UsersController
     }
 
     /// <summary>
-    /// Get User by Id
+    /// Get User by Contact
     /// </summary>
-    /// <remarks>Get a User by id</remarks>
-    /// <response code="200">Find a User by id</response>
+    /// <remarks>Search by a user using Email, CPF or Id.</remarks>
+    /// <response code="200">The User as result.</response>
     /// <response code="500">Fail while searching for User</response>
     [ProducesResponseType(typeof(List<User>), 200)]
+    [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    [HttpGet("{id}")]
-    public async Task<IActionResult> ById(string id)
+    [HttpGet("{contact}")]
+    public async Task<IActionResult> ById(string contact)
     {
-        var result = await _selectUser.ById(id);
+        var result = await _selectUser.ByContact(contact);
 
         return Ok(result);
     }

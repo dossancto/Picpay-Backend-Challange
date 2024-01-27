@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using Picpay.Application.Domain.Exceptions;
 using Picpay.Application.Features.ShopKeepers.Entities;
 using Picpay.Application.Features.ShopKeepers.UseCases;
@@ -75,6 +74,3 @@ public class UserToShopkeeperTransferUseCase
 /// Represents a data object for creating a User
 /// </summary>
 public record UserToShopKeeperTransfer : TransferDTO { }
-
-
-
