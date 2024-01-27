@@ -23,5 +23,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Email).HasMaxLength(255).IsRequired();
         builder.HasIndex(x => x.Email).IsUnique();
+
+        builder.ToTable(t => t.HasCheckConstraint("CK_Users_Balance", @"""Balance"" > 0"));
     }
 }
