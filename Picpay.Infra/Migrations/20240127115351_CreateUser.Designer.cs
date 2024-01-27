@@ -11,7 +11,7 @@ using Picpay.Infra.Database.EF.Contexts;
 namespace Picpay.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240127113827_CreateUser")]
+    [Migration("20240127115351_CreateUser")]
     partial class CreateUser
     {
         /// <inheritdoc />
@@ -49,7 +49,7 @@ namespace Picpay.Infra.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");

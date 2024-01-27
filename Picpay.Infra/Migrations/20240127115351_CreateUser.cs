@@ -16,9 +16,9 @@ namespace Picpay.Infra.Migrations
                 {
                     Id = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     Fullname = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    CPF = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
                     Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    Password = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    CPF = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
+                    HashedPassword = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Salt = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Balance = table.Column<decimal>(type: "numeric", nullable: false)
                 },

@@ -46,7 +46,7 @@ namespace Picpay.Infra.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");

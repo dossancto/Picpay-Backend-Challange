@@ -19,6 +19,7 @@ public class CreateUserUseCase
     /// Initializes a new instance of the <see cref="CreateUserUseCase"/> class.
     /// </summary>
     /// <param name="UserRepository">The User repository.</param>
+    /// <param name="cryptographys">The cryptographys algorithm.</param>
     public CreateUserUseCase(IUserRepository UserRepository, ICryptographys cryptographys)
     {
         _userRepository = UserRepository;
@@ -36,7 +37,7 @@ public class CreateUserUseCase
 
         var entity = dto.ToModel(salt);
 
-        entity.Password = password;
+        entity.HashedPassword = password;
         entity.Balance = INITIAL_CASH;
 
         return _userRepository.Save(entity);
@@ -90,7 +91,7 @@ public record CreateUser
         Fullname = Fullname,
         CPF = CPF,
         Email = Email,
-        Password = Password,
+        HashedPassword = string.Empty,
         Salt = salt,
         Balance = 0m
     };
