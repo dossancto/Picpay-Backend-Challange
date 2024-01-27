@@ -13,6 +13,7 @@ public static class RepositoriesInjection
               .AddScoped<IUserRepository, EFUserRepository>()
               .AddScoped<IShopKeeperRepository, EFShopKeeperRepository>()
               .AddScoped<ITransferRepository, EFTransferRepository>()
+              .AddScoped<ITransactionEntityRepository, EFTransactionEntityRepository>()
     ;
 }
 

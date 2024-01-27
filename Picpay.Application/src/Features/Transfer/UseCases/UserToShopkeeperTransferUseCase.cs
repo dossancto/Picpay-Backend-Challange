@@ -19,17 +19,19 @@ public class UserToShopkeeperTransferUseCase
     private readonly SelectUserUseCase _selectUser;
     private readonly SelectShopKeeperUseCase _selectShopkeeper;
     private readonly INofificationSender _notificationSender;
+    private readonly CreateTransactionEntityUseCase _createTransaction;
     private readonly ILogger<UserToShopkeeperTransferUseCase> logger;
 
     /// <summary>
     /// Injects dependencies
     /// </summary>
-    public UserToShopkeeperTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, SelectShopKeeperUseCase selectShopkeeper, INofificationSender notificationSender, ILogger<UserToShopkeeperTransferUseCase> logger)
+    public UserToShopkeeperTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, SelectShopKeeperUseCase selectShopkeeper, INofificationSender notificationSender, CreateTransactionEntityUseCase createTransaction, ILogger<UserToShopkeeperTransferUseCase> logger)
     {
         _transferRepository = transferRepository;
         _selectUser = selectUser;
         _selectShopkeeper = selectShopkeeper;
         _notificationSender = notificationSender;
+        _createTransaction = createTransaction;
         this.logger = logger;
     }
 
@@ -44,7 +46,15 @@ public class UserToShopkeeperTransferUseCase
 
         AssertCanTransfer(from, dto);
 
-        await _transferRepository.UserToShopkeeperTransfer(from.Id, to.Id, dto.Ammount);
+        var transation = new CreateTransactionEntity
+        {
+            Sender = from.Id,
+            Receiver = to.Id,
+            Ammount = dto.Ammount,
+            EventType = Enums.TransactionEventType.Payment
+        };
+
+        await _transferRepository.UserToShopkeeperTransfer(transation.ToModel());
 
         await Notify(dto);
     }

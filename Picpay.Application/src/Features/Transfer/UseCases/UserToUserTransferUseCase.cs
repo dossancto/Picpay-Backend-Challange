@@ -44,7 +44,15 @@ public class UserToUserTransferUseCase
 
         await AssertCanTransfer(from, dto);
 
-        await _transferRepository.UserToUserTransfer(from.Id, to.Id, dto.Ammount);
+        var transation = new CreateTransactionEntity
+        {
+            Sender = from.Id,
+            Receiver = to.Id,
+            Ammount = dto.Ammount,
+            EventType = Enums.TransactionEventType.Payment
+        };
+
+        await _transferRepository.UserToUserTransfer(transation.ToModel());
 
         await Notify(dto);
     }
