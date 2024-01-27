@@ -5,7 +5,11 @@ namespace Picpay.Application.Features.Transfer.Exceptions;
 public class TransferException : Exception
 {
     private static readonly string DEFAULT_MESSAGE = "Fail while processing transfer, try again later.";
-    private string ErrorDetails = string.Empty;
+
+    /// <summary>
+    /// Details about the operation
+    /// </summary>
+    public string ErrorDetails = string.Empty;
 
     /// <summary>
     /// Add error details

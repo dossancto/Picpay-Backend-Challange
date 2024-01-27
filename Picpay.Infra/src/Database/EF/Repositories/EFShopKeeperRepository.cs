@@ -20,6 +20,15 @@ public class EFShopKeeperRepository : IShopKeeperRepository
                        .AsNoTrackingWithIdentityResolution()
                        .ToListAsync();
 
+    public Task<ShopKeeper?> ByContact(string contact)
+      => _context.ShopKeepers
+                       .AsNoTrackingWithIdentityResolution()
+                       .Where(x =>
+                           x.Id == contact ||
+                           x.Email == contact ||
+                           x.CPF == contact)
+                       .SingleOrDefaultAsync();
+
     public async Task Delete(string id)
     {
         var entity = await _context.ShopKeepers.Where(x => x.Id == id).FirstOrDefaultAsync();

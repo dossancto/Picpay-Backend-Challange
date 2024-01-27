@@ -11,6 +11,8 @@ public static class ApplicationErrorHandler
             app.UseMiddleware<GenericErrorHandler>();
         }
 
+        app.UseMiddleware<TranferErrorHandler>();
+
         return app;
     }
 }

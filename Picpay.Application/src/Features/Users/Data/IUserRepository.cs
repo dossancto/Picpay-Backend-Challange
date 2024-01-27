@@ -28,7 +28,7 @@ public interface IUserRepository
     /// <param name="id">The Entity Id</param>
     /// <returns>The search result or null, if not found</returns>
     Task<User?> FindById(string id);
-    ///
+
     /// <summary>
     /// Search a user using Email, CPF or Id 
     /// </summary>

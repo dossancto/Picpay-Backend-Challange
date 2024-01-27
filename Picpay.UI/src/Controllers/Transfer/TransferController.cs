@@ -12,13 +12,15 @@ namespace Picpay.UI.Controllers.Transfer;
 public partial class TransferController : ControllerBase
 {
     private readonly UserToUserTransferUseCase _userToUserTransfer;
+    private readonly UserToShopkeeperTransferUseCase _userToShopKeeperTransfer;
 
     /// <summary>
     /// Dependency inject.
     /// </summary>
-    public TransferController(UserToUserTransferUseCase userToUserTransfer)
+    public TransferController(UserToUserTransferUseCase userToUserTransfer, UserToShopkeeperTransferUseCase userToShopKeeperTransfer)
     {
         _userToUserTransfer = userToUserTransfer;
+        _userToShopKeeperTransfer = userToShopKeeperTransfer;
     }
 }
 

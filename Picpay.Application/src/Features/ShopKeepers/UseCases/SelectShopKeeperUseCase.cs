@@ -34,6 +34,13 @@ public class SelectShopKeeperUseCase
     /// <returns>The task result contains a list of all notes.</returns>
     public Task<List<ShopKeeper>> All()
     => _ShopKeeperRepository.All();
+
+    /// <summary>
+    /// Find a Shopkeeper using Email, CPF or Id;
+    /// </summary>
+    /// <param name="contact">The contact id, Email, CPF or Id</param>
+    public Task<ShopKeeper?> ByContact(string contact)
+    => _ShopKeeperRepository.ByContact(contact);
 }
 
 
