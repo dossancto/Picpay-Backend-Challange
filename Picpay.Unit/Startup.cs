@@ -1,6 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Picpay.Adapters.Cryptographies;
-using Picpay.Unit.Mock.Providers.Cryptographys;
 using Picpay.DependencyInjection;
 
 namespace Picpay.Unit;
@@ -9,9 +7,15 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddTransient<ICryptographys, CryptographysMock>();
+        var isDev = true;
 
-        services.AddUseCases();
+        var connectionstring = "Server=localhost;Port=5432;Database=mydatabase_test;User Id=postgres;Password=postgres;";
+
+        services
+               .AddDatabase(connectionstring)
+               .AddProviders(isDev)
+               .AddRepositories(isDev)
+               .AddUseCases();
     }
 }
 

@@ -1,4 +1,3 @@
-using Picpay.Infra.Database;
 using DotNetEnv;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +9,9 @@ public static class EnvironmentInjection
     {
         Env.TraversePath().Load();
 
-        services.AddDatabase();
+        var connectionString = Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING") ?? throw new ArgumentException("<POSTGRES_CONNECTION_STRING> not found.");
+
+        services.AddDatabase(connectionString);
 
         return services;
     }
