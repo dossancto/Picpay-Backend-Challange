@@ -51,23 +51,7 @@ public class UserToUserTransferUseCase
 
     private async Task Notify(UserToUserTransfer dto)
     {
-        try
-        {
-            await _notificationSender.NotifyTransaction(new NotifyEmailTransaction(dto.From, dto.To, dto.Ammount));
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e.ToString());
-        }
-
-        try
-        {
-            await _notificationSender.NotifyTransaction(new NotifySmsTransaction(dto.From, dto.To, dto.Ammount));
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e.ToString());
-        }
+        await _notificationSender.TrySendNotifications(new(dto.From, dto.From, dto.To, dto.Ammount));
     }
 
     /// <summary>

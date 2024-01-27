@@ -51,23 +51,7 @@ public class UserToShopkeeperTransferUseCase
 
     private async Task Notify(UserToShopKeeperTransfer dto)
     {
-        try
-        {
-            await _notificationSender.NotifyTransaction(new NotifyEmailTransaction(dto.From, dto.To, dto.Ammount));
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e.ToString());
-        }
-
-        try
-        {
-            await _notificationSender.NotifyTransaction(new NotifySmsTransaction(dto.From, dto.To, dto.Ammount));
-        }
-        catch (Exception e)
-        {
-            logger.LogError(e.ToString());
-        }
+        await _notificationSender.TrySendNotifications(new(dto.From, dto.From, dto.To, dto.Ammount));
     }
 
     /// <summary>
