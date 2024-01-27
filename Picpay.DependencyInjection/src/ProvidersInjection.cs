@@ -10,6 +10,7 @@ public static class ProvidersInjection
         return services
                       .AddCryptography(isDev)
                       .AddAuthorizationProvider(isDev)
+                      .AddNotifications(isDev)
                       ;
     }
 }

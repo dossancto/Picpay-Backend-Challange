@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+using Picpay.Adapters.Notification;
 using Picpay.Application.Domain.Exceptions;
 using Picpay.Application.Features.ShopKeepers.Entities;
 using Picpay.Application.Features.ShopKeepers.UseCases;
@@ -16,15 +18,19 @@ public class UserToShopkeeperTransferUseCase
     private readonly ITransferRepository _transferRepository;
     private readonly SelectUserUseCase _selectUser;
     private readonly SelectShopKeeperUseCase _selectShopkeeper;
+    private readonly INofificationSender _notificationSender;
+    private readonly ILogger<UserToShopkeeperTransferUseCase> logger;
 
     /// <summary>
     /// Injects dependencies
     /// </summary>
-    public UserToShopkeeperTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, SelectShopKeeperUseCase selectShopkeeper)
+    public UserToShopkeeperTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, SelectShopKeeperUseCase selectShopkeeper, INofificationSender notificationSender, ILogger<UserToShopkeeperTransferUseCase> logger)
     {
         _transferRepository = transferRepository;
         _selectUser = selectUser;
         _selectShopkeeper = selectShopkeeper;
+        _notificationSender = notificationSender;
+        this.logger = logger;
     }
 
     /// <summary>
@@ -39,6 +45,29 @@ public class UserToShopkeeperTransferUseCase
         AssertCanTransfer(from, dto);
 
         await _transferRepository.UserToShopkeeperTransfer(from.Id, to.Id, dto.Ammount);
+
+        await Notify(dto);
+    }
+
+    private async Task Notify(UserToShopKeeperTransfer dto)
+    {
+        try
+        {
+            await _notificationSender.NotifyTransaction(new NotifyEmailTransaction(dto.From, dto.To, dto.Ammount));
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e.ToString());
+        }
+
+        try
+        {
+            await _notificationSender.NotifyTransaction(new NotifySmsTransaction(dto.From, dto.To, dto.Ammount));
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e.ToString());
+        }
     }
 
     /// <summary>

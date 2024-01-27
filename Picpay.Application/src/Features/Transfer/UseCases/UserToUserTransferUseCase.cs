@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Logging;
 using Picpay.Adapters.Authorization;
+using Picpay.Adapters.Notification;
 using Picpay.Application.Domain.Exceptions;
 using Picpay.Application.Features.Transfer.Data;
 using Picpay.Application.Features.Transfer.Exceptions;
@@ -16,16 +18,19 @@ public class UserToUserTransferUseCase
     private readonly ITransferRepository _transferRepository;
     private readonly SelectUserUseCase _selectUser;
     private readonly IPaymentAuthorization _paymentAuthorization;
-
+    private readonly INofificationSender _notificationSender;
+    private readonly ILogger<UserToUserTransferUseCase> logger;
 
     /// <summary>
     /// Injects dependencies
     /// </summary>
-    public UserToUserTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, IPaymentAuthorization paymentAuthorization)
+    public UserToUserTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, IPaymentAuthorization paymentAuthorization, INofificationSender notificationSender, ILogger<UserToUserTransferUseCase> logger)
     {
         _transferRepository = transferRepository;
         _selectUser = selectUser;
         _paymentAuthorization = paymentAuthorization;
+        _notificationSender = notificationSender;
+        this.logger = logger;
     }
 
     /// <summary>
@@ -40,6 +45,29 @@ public class UserToUserTransferUseCase
         await AssertCanTransfer(from, dto);
 
         await _transferRepository.UserToUserTransfer(from.Id, to.Id, dto.Ammount);
+
+        await Notify(dto);
+    }
+
+    private async Task Notify(UserToUserTransfer dto)
+    {
+        try
+        {
+            await _notificationSender.NotifyTransaction(new NotifyEmailTransaction(dto.From, dto.To, dto.Ammount));
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e.ToString());
+        }
+
+        try
+        {
+            await _notificationSender.NotifyTransaction(new NotifySmsTransaction(dto.From, dto.To, dto.Ammount));
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e.ToString());
+        }
     }
 
     /// <summary>
