@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Picpay.Application.Domain.Exceptions;
 using Picpay.Application.Features.Transfer.Data;
+using Picpay.Application.Features.Transfer.Exceptions;
+using Picpay.Application.Features.Users.Entities;
 using Picpay.Application.Features.Users.UseCases;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
@@ -29,6 +31,29 @@ public class UserToUserTransferUseCase
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task Execute(UserToUserTransfer dto)
     {
+        var (from, to) = await GetTransferingUsers(dto);
+
+        AssertCanTransfer(from, dto);
+
+        await _transferRepository.UserToUserTransfer(from.Id, to.Id, dto.Ammount);
+    }
+
+    /// <summary>
+    /// Assets that the Account can transfer the money.
+    /// </summary>
+    private void AssertCanTransfer(User from, UserToUserTransfer dto)
+    {
+        if (from.Balance < dto.Ammount)
+        {
+            throw new TransferInsufientAmmountException(from.CPF, dto.Ammount, from.Balance);
+        }
+    }
+
+    /// <summary>
+    /// Get the 2 users for the transfer
+    /// </summary>
+    private async Task<(User from, User to)> GetTransferingUsers(UserToUserTransfer dto)
+    {
         var notFoundMessage = (string x) => $"User with contact {x} not found";
 
         var from = await _selectUser.ByContact(dto.From)
@@ -38,7 +63,7 @@ public class UserToUserTransferUseCase
               ?? throw new NotFoundException(notFoundMessage(dto.To));
         ;
 
-        await _transferRepository.UserToUserTransfer(from.Id, to.Id, dto.Ammount);
+        return (from, to);
     }
 }
 

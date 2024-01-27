@@ -5,6 +5,7 @@ namespace Picpay.Application.Features.Transfer.Exceptions;
 /// </summary>
 public class TransferInsufientAmmountException : TransferException
 {
+    private static readonly string DefaultMessage = "The Account does not have sufficient ammount to this transfer.";
     /// <summary>
     /// The account Id of the user that can't transfer.
     /// </summary>
@@ -23,11 +24,20 @@ public class TransferInsufientAmmountException : TransferException
     /// <summary>
     /// Instanciates the excepetion with userid
     /// </summary>
-    public TransferInsufientAmmountException(string msg, string accountId, decimal requiredAmmount, decimal accountBalance) : base(msg)
+    public TransferInsufientAmmountException(string msg, string accountId,
+        decimal requiredAmmount, decimal accountBalance)
+      : base(msg)
     {
         AccountId = accountId;
         RequiredAmmount = requiredAmmount;
         AccountBalance = accountBalance;
     }
+
+    /// <summary>
+    /// Instanciates the excepetion with userid with a default message
+    /// </summary>
+    public TransferInsufientAmmountException(string accountId, decimal requiredAmmount,
+        decimal accountBalance)
+      : this(DefaultMessage, accountId, requiredAmmount, accountBalance) { }
 }
 
