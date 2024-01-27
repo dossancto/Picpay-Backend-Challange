@@ -9,6 +9,7 @@ public static class UseCasesInjection
       => services
                 .AddUserUseCases()
                 .AddTransferUseCases()
+                .AddShopKeeperUseCases()
                 ;
 }
 
