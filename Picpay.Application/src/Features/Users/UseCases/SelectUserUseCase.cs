@@ -34,6 +34,13 @@ public class SelectUserUseCase
     /// <returns>The task result contains a list of all notes.</returns>
     public Task<List<User>> All()
     => _UserRepository.All();
+
+    /// <summary>
+    /// Find a user seaerching for Email, CPF or Id
+    /// </summary>
+    /// <returns>The searched user, or null if not found.</returns>
+    public Task<User?> ByContact(string contact)
+    => _UserRepository.FindByContact(contact);
 }
 
-  
+

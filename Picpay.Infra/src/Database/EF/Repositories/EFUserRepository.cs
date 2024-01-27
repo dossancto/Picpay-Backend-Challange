@@ -31,6 +31,15 @@ public class EFUserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
+    public Task<User?> FindByContact(string contact)
+      => _context.Users
+                       .AsNoTrackingWithIdentityResolution()
+                       .Where(x =>
+                           x.Id == contact ||
+                           x.Email == contact ||
+                           x.CPF == contact)
+                       .SingleOrDefaultAsync();
+
     public async Task<User?> FindById(string id)
       => await _context.Users
                        .AsNoTrackingWithIdentityResolution()
