@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Adapters", "Picpay.Adapters\Picpay.Adapters.csproj", "{E33BB6C8-9C36-4D54-9B4C-D2BDDBB79D5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Application", "Picpay.Application\Picpay.Application.csproj", "{4A3B4D48-B27D-4BCE-9A9B-FA8DDDCCF19A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.DependencyInjection", "Picpay.DependencyInjection\Picpay.DependencyInjection.csproj", "{AC3C321E-7300-46FA-BF83-DE5E2CCFEBA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Infra", "Picpay.Infra\Picpay.Infra.csproj", "{D0612296-A344-4C49-B69B-71934358722B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.UI", "Picpay.UI\Picpay.UI.csproj", "{D23EA5D9-9264-470F-B6ED-A8E40FC6FC76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E33BB6C8-9C36-4D54-9B4C-D2BDDBB79D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E33BB6C8-9C36-4D54-9B4C-D2BDDBB79D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E33BB6C8-9C36-4D54-9B4C-D2BDDBB79D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E33BB6C8-9C36-4D54-9B4C-D2BDDBB79D5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A3B4D48-B27D-4BCE-9A9B-FA8DDDCCF19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A3B4D48-B27D-4BCE-9A9B-FA8DDDCCF19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A3B4D48-B27D-4BCE-9A9B-FA8DDDCCF19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A3B4D48-B27D-4BCE-9A9B-FA8DDDCCF19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC3C321E-7300-46FA-BF83-DE5E2CCFEBA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC3C321E-7300-46FA-BF83-DE5E2CCFEBA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC3C321E-7300-46FA-BF83-DE5E2CCFEBA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC3C321E-7300-46FA-BF83-DE5E2CCFEBA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0612296-A344-4C49-B69B-71934358722B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0612296-A344-4C49-B69B-71934358722B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0612296-A344-4C49-B69B-71934358722B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0612296-A344-4C49-B69B-71934358722B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D23EA5D9-9264-470F-B6ED-A8E40FC6FC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D23EA5D9-9264-470F-B6ED-A8E40FC6FC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D23EA5D9-9264-470F-B6ED-A8E40FC6FC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D23EA5D9-9264-470F-B6ED-A8E40FC6FC76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
