@@ -15,4 +15,15 @@ public static class DatabaseInjection
 
         return services;
     }
+
+    public static IServiceCollection AddDatabaseInfraInMemory(this IServiceCollection services)
+    {
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseInMemoryDatabase("mydatabase_test");
+        });
+
+        return services;
+    }
+
 }

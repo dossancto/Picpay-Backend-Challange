@@ -28,6 +28,6 @@ public class CreateUserTest
 
         //Then
         Assert.Equal(250, createdUser.Balance);
+        Assert.NotEmpty(createdUser.Id);
     }
-
 }

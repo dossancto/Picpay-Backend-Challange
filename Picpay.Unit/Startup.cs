@@ -9,10 +9,8 @@ public class Startup
     {
         var isDev = true;
 
-        var connectionstring = "Server=localhost;Port=5432;Database=mydatabase_test;User Id=postgres;Password=postgres;";
-
         services
-               .AddDatabase(connectionstring)
+               .AddDatabaseInMemory()
                .AddProviders(isDev)
                .AddRepositories(isDev)
                .AddUseCases();

@@ -12,5 +12,9 @@ public static class DatabaseInjection
         return services;
     }
 
+    public static IServiceCollection AddDatabaseInMemory(this IServiceCollection services)
+    {
+        return services.AddDatabaseInfraInMemory();
+    }
 }
 
