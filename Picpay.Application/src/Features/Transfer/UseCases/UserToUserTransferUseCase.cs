@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Picpay.Adapters.Authorization;
 using Picpay.Application.Domain.Exceptions;
 using Picpay.Application.Features.Transfer.Data;
 using Picpay.Application.Features.Transfer.Exceptions;
@@ -14,14 +15,17 @@ public class UserToUserTransferUseCase
 {
     private readonly ITransferRepository _transferRepository;
     private readonly SelectUserUseCase _selectUser;
+    private readonly IPaymentAuthorization _paymentAuthorization;
+
 
     /// <summary>
     /// Injects dependencies
     /// </summary>
-    public UserToUserTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser)
+    public UserToUserTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, IPaymentAuthorization paymentAuthorization)
     {
         _transferRepository = transferRepository;
         _selectUser = selectUser;
+        _paymentAuthorization = paymentAuthorization;
     }
 
     /// <summary>
@@ -33,7 +37,7 @@ public class UserToUserTransferUseCase
     {
         var (from, to) = await GetTransferingUsers(dto);
 
-        AssertCanTransfer(from, dto);
+        await AssertCanTransfer(from, dto);
 
         await _transferRepository.UserToUserTransfer(from.Id, to.Id, dto.Ammount);
     }
@@ -41,11 +45,18 @@ public class UserToUserTransferUseCase
     /// <summary>
     /// Assets that the Account can transfer the money.
     /// </summary>
-    private void AssertCanTransfer(User from, UserToUserTransfer dto)
+    private async Task AssertCanTransfer(User from, UserToUserTransfer dto)
     {
         if (from.Balance < dto.Ammount)
         {
             throw new TransferInsufientAmmountException(from.CPF, dto.Ammount, from.Balance);
+        }
+
+        var authorized = await _paymentAuthorization.IsAuthorized();
+
+        if (!authorized)
+        {
+            throw new TransferException("Are not authorized to perform this transfer.");
         }
     }
 

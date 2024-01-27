@@ -8,7 +8,9 @@ public static class ProvidersInjection
     public static IServiceCollection AddProviders(this IServiceCollection services, bool isDev)
     {
         return services
-                      .AddCryptography(isDev);
+                      .AddCryptography(isDev)
+                      .AddAuthorizationProvider(isDev)
+                      ;
     }
 }
 
