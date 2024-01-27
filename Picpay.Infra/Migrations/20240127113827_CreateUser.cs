@@ -5,7 +5,7 @@
 namespace Picpay.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class CreateUser : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,15 +15,23 @@ namespace Picpay.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
-                    Name = table.Column<string>(type: "character varying(90)", maxLength: 90, nullable: false),
-                    Email = table.Column<string>(type: "character varying(90)", maxLength: 90, nullable: false),
-                    HashedPassword = table.Column<string>(type: "text", nullable: false),
-                    Salt = table.Column<string>(type: "text", nullable: false)
+                    Fullname = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    CPF = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: false),
+                    Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Password = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Salt = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Balance = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_CPF",
+                table: "Users",
+                column: "CPF",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",

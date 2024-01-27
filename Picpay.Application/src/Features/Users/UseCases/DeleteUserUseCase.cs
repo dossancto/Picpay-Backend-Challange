@@ -1,45 +1,27 @@
 using Picpay.Application.Features.Users.Data;
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Picpay.Application.Features.Users.UseCases;
 
 /// <summary>
-/// Delete a user
+/// This class encapsulates the use case of deleting a User.
 /// </summary>
 public class DeleteUserUseCase
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserRepository _UserRepository;
 
     /// <summary>
-    /// Dependency invert the Delete usecase
+    /// Initializes a new instance of the <see cref="DeleteUserUseCase"/> class.
     /// </summary>
-    public DeleteUserUseCase(IUserRepository userRepository)
+    /// <param name="UserRepository">The User repository.</param>
+    public DeleteUserUseCase(IUserRepository UserRepository)
     {
-        _userRepository = userRepository;
+        _UserRepository = UserRepository;
     }
 
     /// <summary>
-    /// Executes the Delete Use Case
+    /// Deletes a User by its unique identifier.
     /// </summary>
-    public async Task Execute(DeleteUserDTO dto)
-    {
-        Console.WriteLine($"User id => {dto.Id}");
-        await _userRepository.DeleteById(dto.Id);
-    }
+    /// <param name="id">The unique identifier of the User.</param>
+    public Task Execute(string id)
+    => _UserRepository.Delete(id);
 }
-
-/// <summary>
-/// DTO used to delete a user
-/// </summary>
-public record DeleteUserDTO
-{
-    /// <summary>
-    /// The user Id to be deleted.
-    /// </summary>
-    /// <example>5Zsqvr9gx1fhIPAyHGYrD</example>
-    [Required]
-    public required string Id { get; set; }
-}
-
-

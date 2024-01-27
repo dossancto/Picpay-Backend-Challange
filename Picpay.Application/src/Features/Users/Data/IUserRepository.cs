@@ -1,14 +1,42 @@
+
 using Picpay.Application.Features.Users.Entities;
+
 namespace Picpay.Application.Features.Users.Data;
 
+/// <summary>
+/// Defines operations for a User repository.
+/// </summary>
 public interface IUserRepository
 {
-    Task<User> Save(User user);
-    Task<User> Update(User user);
+   /// <summary>
+   /// Save a new User
+   /// </summary>
+   /// <param name="entity">The entity to save</param>
+   /// <returns>The created User</returns>
+   Task<User> Save(User entity);
 
-    Task<User?> GetByEmail(string email);
-    Task<User?> GetById(string id);
+   /// <summary>
+   /// Update a existint User
+   /// </summary>
+   /// <param name="entity">The entity to update</param>
+   /// <returns>The updated User</returns>
+   Task<User> Update(User entity);
 
-    Task DeleteById(string id);
+   /// <summary>
+   /// Search for a User using it Id
+   /// </summary>
+   /// <param name="id">The Entity Id</param>
+   /// <returns>The search result or null, if not found</returns>
+   Task<User?> FindById(string id);
+
+   /// <summary>
+   /// List all User
+   /// </summary>
+   /// <returns>A list of all User</returns>
+   Task<List<User>> All();
+
+   /// <summary>
+   /// Delete a User
+   /// </summary>
+   Task Delete(string id);
 }
-
