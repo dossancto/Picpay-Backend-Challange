@@ -7,7 +7,9 @@ public static class UseCasesInjection
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services)
       => services
-                .AddUserUseCases();
+                .AddUserUseCases()
+                .AddTransferUseCases()
+                ;
 }
 
 
