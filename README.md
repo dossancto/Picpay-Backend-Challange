@@ -29,6 +29,15 @@ Picpay backend challange
     make run
     ```
 
+- Or with docker
+
+    ```sh
+    docker build -t picpay:latest .
+    ```
+
+    ```sh
+    docker run --env-file .env picpay:latest
+    ```
 
 ## TODO
 
