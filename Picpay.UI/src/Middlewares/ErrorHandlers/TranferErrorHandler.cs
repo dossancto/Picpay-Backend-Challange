@@ -21,6 +21,17 @@ public class TranferErrorHandler
         {
             await next(context);
         }
+        catch (TransferInsufientAmmountException e)
+        {
+            context.Response.StatusCode = 400;
+
+            await context.Response.WriteAsJsonAsync(new
+            {
+                e.Message,
+                e.RequiredAmmount,
+                e.AccountBalance,
+            });
+        }
         catch (TransferException e)
         {
             context.Response.StatusCode = 400;
