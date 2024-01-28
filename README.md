@@ -43,6 +43,4 @@ Picpay backend challange
 
 - Assert that CPF and Email Are unique for Users and Shopkeepers
 
-- Handle exceptions in Exception Handler
-
 - Unit and Integration Tests 
