@@ -49,7 +49,7 @@ This documentation also helps other developers mantain the code
     ```
 
     ```sh
-    docker run --env-file .env picpay:latest
+    docker run --env-file .env -p 5175:8080 picpay
     ```
 
 ## TODO
