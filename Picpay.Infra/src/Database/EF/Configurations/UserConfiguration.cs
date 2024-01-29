@@ -1,4 +1,5 @@
-using Picpay.Application.Features.Users.Entities;
+using Picpay.Domain.Features.Users.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,4 +1,4 @@
-namespace Picpay.Application.Features.Transfer.Exceptions;
+namespace Picpay.Domain.Features.Transfer.Exceptions;
 /// <summary>
 /// Encapsulates all exceptions related to Transfer Fails
 /// </summary>

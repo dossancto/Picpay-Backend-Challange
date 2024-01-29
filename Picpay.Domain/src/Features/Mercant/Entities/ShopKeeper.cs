@@ -1,9 +1,9 @@
-using Picpay.Application.Features.Accounts.Entities;
+using Picpay.Domain.Features.Accounts.Entities;
 
-namespace Picpay.Application.Features.ShopKeepers.Entities;
+namespace Picpay.Domain.Features.Mercant.Entities;
 
 /// <summary>
-/// ShopKeeper
+/// Merchant
 /// </summary>
 public class ShopKeeper : Account
 {

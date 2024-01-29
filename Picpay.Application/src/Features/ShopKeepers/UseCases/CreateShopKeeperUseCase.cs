@@ -1,8 +1,9 @@
 using Picpay.Adapters.Cryptographies;
-using Picpay.Application.Features.Accounts.Entities;
+
+using Picpay.Domain.Features.Mercant.Entities;
+
 using Picpay.Application.Features.Accounts.UseCases;
 using Picpay.Application.Features.ShopKeepers.Data;
-using Picpay.Application.Features.ShopKeepers.Entities;
 
 namespace Picpay.Application.Features.ShopKeepers.UseCases;
 

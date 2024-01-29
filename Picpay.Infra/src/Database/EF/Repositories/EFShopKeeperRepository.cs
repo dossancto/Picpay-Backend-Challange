@@ -1,6 +1,5 @@
-
 using Picpay.Application.Features.ShopKeepers.Data;
-using Picpay.Application.Features.ShopKeepers.Entities;
+using Picpay.Domain.Features.Mercant.Entities;
 using Picpay.Infra.Database.EF.Contexts;
 
 using NanoidDotNet;

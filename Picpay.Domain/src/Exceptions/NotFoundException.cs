@@ -1,4 +1,4 @@
-namespace Picpay.Application.Domain.Exceptions;
+namespace Picpay.Domain.Exceptions;
 
 /// <summary>
 /// Represents a not found resource. 

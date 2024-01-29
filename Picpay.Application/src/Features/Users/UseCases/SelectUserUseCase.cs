@@ -1,6 +1,6 @@
-using Picpay.Application.Domain.Exceptions;
+using Picpay.Domain.Exceptions;
 using Picpay.Application.Features.Users.Data;
-using Picpay.Application.Features.Users.Entities;
+using Picpay.Domain.Features.Users.Entities;
 
 namespace Picpay.Application.Features.Users.UseCases;
 

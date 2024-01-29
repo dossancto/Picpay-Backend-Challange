@@ -1,4 +1,4 @@
-namespace Picpay.Application.Features.Transfer.Exceptions;
+namespace Picpay.Domain.Features.Transfer.Exceptions;
 
 /// <summary>
 /// If the Account does not have sufficient ammount.

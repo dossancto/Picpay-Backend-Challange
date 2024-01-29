@@ -1,4 +1,4 @@
-using Picpay.Application.Domain.Exceptions;
+using Picpay.Domain.Exceptions;
 namespace Picpay.UI.Controllers.Middlewares.ErrorHandlers;
 
 public class DefaultErrorHandler

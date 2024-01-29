@@ -1,9 +1,11 @@
 using Picpay.Infra.Database.EF.Contexts;
 
-using Microsoft.EntityFrameworkCore;
 using Picpay.Application.Features.Transfer.Data;
-using Picpay.Application.Features.Transfer.Exceptions;
-using Picpay.Application.Features.Transfer.Entities;
+
+using Picpay.Domain.Features.Transfer.Exceptions;
+using Picpay.Domain.Features.Transfer.Entities;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace Picpay.Infra.Database.EF.Repositories;
 

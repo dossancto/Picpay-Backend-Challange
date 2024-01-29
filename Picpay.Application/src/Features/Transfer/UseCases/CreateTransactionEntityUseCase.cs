@@ -1,6 +1,6 @@
 using Picpay.Application.Features.Transfer.Data;
-using Picpay.Application.Features.Transfer.Entities;
-using Picpay.Application.Features.Transfer.Enums;
+using Picpay.Domain.Features.Transfer.Entities;
+using Picpay.Domain.Features.Transfer.Enums;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
 

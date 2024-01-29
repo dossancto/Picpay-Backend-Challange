@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Picpay.DependencyInjection\Picpay.DependencyInjection.csproj" />
     <ProjectReference Include="..\Picpay.Application\Picpay.Application.csproj" />
+    <ProjectReference Include="..\Picpay.Domain\Picpay.Domain.csproj" />
   </ItemGroup>
 
 </Project>

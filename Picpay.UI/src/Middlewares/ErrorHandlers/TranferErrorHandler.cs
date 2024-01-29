@@ -1,4 +1,4 @@
-using Picpay.Application.Features.Transfer.Exceptions;
+using Picpay.Domain.Features.Transfer.Exceptions;
 
 namespace Picpay.UI.Controllers.Middlewares.ErrorHandlers;
 

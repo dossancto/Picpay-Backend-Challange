@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Picpay.Application.Features.Users.Entities;
+using Picpay.Domain.Features.Users.Entities;
 using Picpay.Application.Features.Users.UseCases;
 
 namespace Picpay.UI.Controllers.Users;

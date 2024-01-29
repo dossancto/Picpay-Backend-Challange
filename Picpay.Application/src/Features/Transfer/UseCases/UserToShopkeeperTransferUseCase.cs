@@ -1,11 +1,14 @@
 using Microsoft.Extensions.Logging;
+
+using Picpay.Domain.Exceptions;
+using Picpay.Domain.Features.Mercant.Entities;
+using Picpay.Domain.Features.Transfer.Exceptions;
+using Picpay.Domain.Features.Users.Entities;
+using Picpay.Domain.Features.Transfer.Enums;
+
 using Picpay.Adapters.Notification;
-using Picpay.Application.Domain.Exceptions;
-using Picpay.Application.Features.ShopKeepers.Entities;
 using Picpay.Application.Features.ShopKeepers.UseCases;
 using Picpay.Application.Features.Transfer.Data;
-using Picpay.Application.Features.Transfer.Exceptions;
-using Picpay.Application.Features.Users.Entities;
 using Picpay.Application.Features.Users.UseCases;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
@@ -51,7 +54,7 @@ public class UserToShopkeeperTransferUseCase
             Sender = from.Id,
             Receiver = to.Id,
             Ammount = dto.Ammount,
-            EventType = Enums.TransactionEventType.Payment
+            EventType = TransactionEventType.Payment
         };
 
         await _transferRepository.UserToShopkeeperTransfer(transation.ToModel());

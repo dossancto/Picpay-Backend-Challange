@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Picpay.Application.Features.ShopKeepers.Entities;
+using Picpay.Domain.Features.Mercant.Entities;
 
 namespace Picpay.UI.Controllers.ShopKeepers;
 

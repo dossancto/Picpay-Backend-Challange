@@ -1,7 +1,7 @@
-using Picpay.Application.Features.Users.Entities;
+using Picpay.Domain.Features.Users.Entities;
 using Microsoft.EntityFrameworkCore;
-using Picpay.Application.Features.ShopKeepers.Entities;
-using Picpay.Application.Features.Transfer.Entities;
+using Picpay.Domain.Features.Mercant.Entities;
+using Picpay.Domain.Features.Transfer.Entities;
 
 namespace Picpay.Infra.Database.EF.Contexts;
 

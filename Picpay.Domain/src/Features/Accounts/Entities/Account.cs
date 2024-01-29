@@ -1,4 +1,4 @@
-namespace Picpay.Application.Features.Accounts.Entities;
+namespace Picpay.Domain.Features.Accounts.Entities;
 
 /// <summary>
 /// Represents a generic account entity

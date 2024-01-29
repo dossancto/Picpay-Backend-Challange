@@ -1,5 +1,4 @@
-
-using Picpay.Application.Features.ShopKeepers.Entities;
+using Picpay.Domain.Features.Mercant.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

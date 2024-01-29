@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using Picpay.Application.Features.Accounts.Entities;
+
+using Picpay.Domain.Features.Accounts.Entities;
 
 namespace Picpay.Application.Features.Accounts.UseCases;
 

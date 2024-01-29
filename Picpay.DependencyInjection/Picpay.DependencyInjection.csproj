@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Picpay.Adapters\Picpay.Adapters.csproj" />
     <ProjectReference Include="..\Picpay.Infra\Picpay.Infra.csproj" />
     <ProjectReference Include="..\Picpay.Application\Picpay.Application.csproj" />
+    <ProjectReference Include="..\Picpay.Domain\Picpay.Domain.csproj" />
   </ItemGroup>
 
 </Project>

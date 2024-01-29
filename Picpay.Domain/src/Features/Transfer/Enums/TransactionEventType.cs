@@ -1,4 +1,4 @@
-namespace Picpay.Application.Features.Transfer.Enums;
+namespace Picpay.Domain.Features.Transfer.Enums;
 
 public enum TransactionEventType
 {

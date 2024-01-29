@@ -1,6 +1,5 @@
-
 using Picpay.Application.Features.ShopKeepers.Data;
-using Picpay.Application.Features.ShopKeepers.Entities;
+using Picpay.Domain.Features.Mercant.Entities;
 
 namespace Picpay.Application.Features.ShopKeepers.UseCases;
 

@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Picpay.Adapters\Picpay.Adapters.csproj" />
+    <ProjectReference Include="..\Picpay.Domain\Picpay.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

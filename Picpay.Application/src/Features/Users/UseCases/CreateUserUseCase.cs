@@ -1,5 +1,5 @@
+using Picpay.Domain.Features.Users.Entities;
 using Picpay.Application.Features.Users.Data;
-using Picpay.Application.Features.Users.Entities;
 using Picpay.Adapters.Cryptographies;
 using Picpay.Application.Features.Accounts.UseCases;
 

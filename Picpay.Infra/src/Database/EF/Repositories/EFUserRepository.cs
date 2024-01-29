@@ -1,5 +1,5 @@
 using Picpay.Application.Features.Users.Data;
-using Picpay.Application.Features.Users.Entities;
+using Picpay.Domain.Features.Users.Entities;
 using Picpay.Infra.Database.EF.Contexts;
 
 using NanoidDotNet;

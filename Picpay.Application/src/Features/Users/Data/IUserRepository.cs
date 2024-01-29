@@ -1,5 +1,4 @@
-
-using Picpay.Application.Features.Users.Entities;
+using Picpay.Domain.Features.Users.Entities;
 
 namespace Picpay.Application.Features.Users.Data;
 
