@@ -10,6 +10,8 @@ using Picpay.Adapters.Authorization;
 using Picpay.Adapters.Notification;
 using Picpay.Application.Features.Transfer.Data;
 using Picpay.Application.Features.Users.UseCases;
+using MediatR;
+using Picpay.Application.EventHandlers.Notifications.Transfer;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
 
@@ -23,17 +25,19 @@ public class UserToUserTransferUseCase
     private readonly IPaymentAuthorization _paymentAuthorization;
     private readonly INofificationSender _notificationSender;
     private readonly ILogger<UserToUserTransferUseCase> logger;
+    private readonly IMediator _mediator;
 
     /// <summary>
     /// Injects dependencies
     /// </summary>
-    public UserToUserTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, IPaymentAuthorization paymentAuthorization, INofificationSender notificationSender, ILogger<UserToUserTransferUseCase> logger)
+    public UserToUserTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, IPaymentAuthorization paymentAuthorization, INofificationSender notificationSender, ILogger<UserToUserTransferUseCase> logger, IMediator mediator)
     {
         _transferRepository = transferRepository;
         _selectUser = selectUser;
         _paymentAuthorization = paymentAuthorization;
         _notificationSender = notificationSender;
         this.logger = logger;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -42,6 +46,30 @@ public class UserToUserTransferUseCase
     /// <param name="dto">The data transfer object containing the details of the User to be created.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task Execute(UserToUserTransfer dto)
+    {
+        try
+        {
+            await Run(dto);
+
+            await _mediator.Publish(new NewTransactionEvent
+            {
+                OriginatorEmail = dto.From,
+                TargetEmail = dto.To,
+                Amount = dto.Ammount
+            });
+        }
+        catch (Exception)
+        {
+            // TODO: Notify a Fail in Transfer.
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Effectively run the logic
+    /// </summary>
+    /// <param name="dto">The data transfer object containing the details of the User to be created.</param>
+    public async Task Run(UserToUserTransfer dto)
     {
         var (from, to) = await GetTransferingUsers(dto);
 
@@ -56,13 +84,6 @@ public class UserToUserTransferUseCase
         };
 
         await _transferRepository.UserToUserTransfer(transation.ToModel());
-
-        await Notify(dto);
-    }
-
-    private async Task Notify(UserToUserTransfer dto)
-    {
-        await _notificationSender.TrySendNotifications(new(dto.From, dto.From, dto.To, dto.Ammount));
     }
 
     /// <summary>
