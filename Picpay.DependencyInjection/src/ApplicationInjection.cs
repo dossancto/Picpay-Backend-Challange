@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+using Picpay.DependencyInjection.Services;
 
 namespace Picpay.DependencyInjection;
 
@@ -14,6 +14,7 @@ public static class ApplicationInjection
 
     private static IServiceCollection AddDefaultApplication(this IServiceCollection services, bool isDev)
     => services
+            .AddMediatRConfiguration()
             .AddEnvironment(isDev)
             .AddProviders(isDev)
             .AddRepositories(isDev)
