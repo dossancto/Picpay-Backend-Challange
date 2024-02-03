@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.UI", "Picpay.UI\Picp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Domain", "Picpay.Domain\Picpay.Domain.csproj", "{023D4D9A-4E15-4460-BDD2-C971B25A6943}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picpay.Tests.Unit", "Picpay.Tests.Unit\Picpay.Tests.Unit.csproj", "{5426EA37-3635-4C55-A99A-788454F89916}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{023D4D9A-4E15-4460-BDD2-C971B25A6943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{023D4D9A-4E15-4460-BDD2-C971B25A6943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{023D4D9A-4E15-4460-BDD2-C971B25A6943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5426EA37-3635-4C55-A99A-788454F89916}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5426EA37-3635-4C55-A99A-788454F89916}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5426EA37-3635-4C55-A99A-788454F89916}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5426EA37-3635-4C55-A99A-788454F89916}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

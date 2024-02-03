@@ -35,9 +35,11 @@ public class CreateUserUseCase
     {
         var (password, salt) = _cryptographys.HashPassword(dto.Password);
 
-        var entity = dto.ToModel(salt);
+        var entity = dto.ToModel();
 
         entity.HashedPassword = password;
+        entity.Salt = salt;
+
         entity.Balance = INITIAL_CASH;
 
         return _userRepository.Save(entity);
@@ -53,14 +55,14 @@ public record CreateUser : CreteAccount
     /// <summary>
     /// Converts the DTO to a model.
     /// </summary>
-    public new User ToModel(string salt)
+    public User ToModel()
     => new()
     {
         Fullname = Fullname,
         CPF = CPF,
         Email = Email,
         HashedPassword = string.Empty,
-        Salt = salt,
+        Salt = string.Empty,
         Balance = 0m
     };
 }
