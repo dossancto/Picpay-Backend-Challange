@@ -30,7 +30,7 @@ public class CreateUserTest
         var cryptographys = new Mock<ICryptographys>();
         var creeateuservalidator = new CreateAccountValidation();
 
-        cryptographys.Setup(x => x.HashPassword("ALongAndSecurePassword")).Returns(("", ""));
+        cryptographys.Setup(x => x.HashPassword(It.IsAny<string>())).Returns(("", ""));
 
         var usecase = new CreateUserUseCase(userRepository.Object, cryptographys.Object, creeateuservalidator);
 
@@ -39,5 +39,38 @@ public class CreateUserTest
 
         // Assert
         userRepository.Verify(r => r.Save(It.IsAny<User>()));
+    }
+
+    [Fact]
+    public async Task Fail_Create_UnsecurePassword()
+    {
+        // Arrange
+        var request = new CreateUser
+        {
+            Email = "test@example.com",
+            CPF = "66583552078",
+            Fullname = "John Doe",
+            Password = "somepassword"
+        };
+
+        var userRepository = new Mock<IUserRepository>();
+
+        userRepository
+          .Setup(x => x.Save(It.IsAny<User>()))
+          .ReturnsAsync(new User());
+
+        var cryptographys = new Mock<ICryptographys>();
+        var creeateuservalidator = new CreateAccountValidation();
+
+        cryptographys.Setup(x => x.HashPassword(It.IsAny<string>())).Returns(("", ""));
+
+        var usecase = new CreateUserUseCase(userRepository.Object, cryptographys.Object, creeateuservalidator);
+
+        // Act
+        var task = async () => await usecase.Execute(request);
+
+        // Assert
+        var ex = await Assert.ThrowsAsync<ValidationFailException>(task);
+        Assert.Equal(3, ex.Errors.Count());
     }
 }
