@@ -2,6 +2,8 @@ using Picpay.Domain.Features.Users.Entities;
 using Picpay.Application.Features.Users.Data;
 using Picpay.Adapters.Cryptographies;
 using Picpay.Application.Features.Accounts.UseCases;
+using FluentValidation;
+using Picpay.Application.Utils.Validation;
 
 namespace Picpay.Application.Features.Users.UseCases;
 
@@ -12,6 +14,7 @@ public class CreateUserUseCase
 {
     private readonly IUserRepository _userRepository;
     private readonly ICryptographys _cryptographys;
+    private readonly IValidator<CreteAccount> _createAccountValidator;
 
     private const decimal INITIAL_CASH = 250m;
 
@@ -20,10 +23,12 @@ public class CreateUserUseCase
     /// </summary>
     /// <param name="UserRepository">The User repository.</param>
     /// <param name="cryptographys">The cryptographys algorithm.</param>
-    public CreateUserUseCase(IUserRepository UserRepository, ICryptographys cryptographys)
+    /// <param name="createAccountValidator">Validator for creating a new account</param>
+    public CreateUserUseCase(IUserRepository UserRepository, ICryptographys cryptographys, IValidator<CreteAccount> createAccountValidator)
     {
         _userRepository = UserRepository;
         _cryptographys = cryptographys;
+        _createAccountValidator = createAccountValidator;
     }
 
     /// <summary>
@@ -33,6 +38,8 @@ public class CreateUserUseCase
     /// <returns>A task representing the asynchronous operation.</returns>
     public Task<User> Execute(CreateUser dto)
     {
+        _createAccountValidator.Check(dto, "Fail while validating user creation");
+
         var (password, salt) = _cryptographys.HashPassword(dto.Password);
 
         var entity = dto.ToModel();

@@ -1,4 +1,6 @@
+using Picpay.Domain.Exceptions;
 using Picpay.Adapters.Cryptographies;
+using Picpay.Application.Features.Accounts.Validations;
 using Picpay.Application.Features.Users.Data;
 using Picpay.Application.Features.Users.UseCases;
 using Picpay.Domain.Features.Users.Entities;
@@ -14,9 +16,9 @@ public class CreateUserTest
         var request = new CreateUser
         {
             Email = "test@example.com",
-            CPF = "000",
+            CPF = "66583552078",
             Fullname = "John Doe",
-            Password = "ALongAndSecurePassword"
+            Password = "S#cur3Password"
         };
 
         var userRepository = new Mock<IUserRepository>();
@@ -26,10 +28,11 @@ public class CreateUserTest
           .ReturnsAsync(new User());
 
         var cryptographys = new Mock<ICryptographys>();
+        var creeateuservalidator = new CreateAccountValidation();
 
         cryptographys.Setup(x => x.HashPassword("ALongAndSecurePassword")).Returns(("", ""));
 
-        var usecase = new CreateUserUseCase(userRepository.Object, cryptographys.Object);
+        var usecase = new CreateUserUseCase(userRepository.Object, cryptographys.Object, creeateuservalidator);
 
         // Act
         await usecase.Execute(request);

@@ -14,6 +14,7 @@ public static class ApplicationInjection
 
     private static IServiceCollection AddDefaultApplication(this IServiceCollection services, bool isDev)
     => services
+            .AddFluentValidationConfiguration()
             .AddMediatRConfiguration()
             .AddEnvironment(isDev)
             .AddProviders(isDev)

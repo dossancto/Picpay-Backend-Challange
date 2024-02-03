@@ -1,7 +1,6 @@
 using Picpay.Application.Features.Users.Data;
 using Picpay.Application.Features.ShopKeepers.Data;
 using Picpay.Infra.Database.EF.Repositories;
-using Microsoft.Extensions.DependencyInjection;
 using Picpay.Application.Features.Transfer.Data;
 
 namespace Picpay.DependencyInjection;

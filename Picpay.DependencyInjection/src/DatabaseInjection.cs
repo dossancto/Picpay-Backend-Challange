@@ -1,5 +1,4 @@
 using Picpay.Infra.Database;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Picpay.DependencyInjection;
 

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Picpay.DependencyInjection.Providers;
 
 namespace Picpay.DependencyInjection;

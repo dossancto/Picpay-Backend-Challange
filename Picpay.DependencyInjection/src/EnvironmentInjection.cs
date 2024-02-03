@@ -1,5 +1,4 @@
 using DotNetEnv;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Picpay.DependencyInjection;
 
