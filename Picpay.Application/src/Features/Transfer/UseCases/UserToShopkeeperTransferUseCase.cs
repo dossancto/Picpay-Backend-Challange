@@ -1,15 +1,14 @@
-using Microsoft.Extensions.Logging;
-
 using Picpay.Domain.Exceptions;
 using Picpay.Domain.Features.Mercant.Entities;
 using Picpay.Domain.Features.Transfer.Exceptions;
 using Picpay.Domain.Features.Users.Entities;
 using Picpay.Domain.Features.Transfer.Enums;
 
-using Picpay.Adapters.Notification;
 using Picpay.Application.Features.ShopKeepers.UseCases;
 using Picpay.Application.Features.Transfer.Data;
 using Picpay.Application.Features.Users.UseCases;
+using MediatR;
+using Picpay.Application.EventHandlers.Notifications.Transfer;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
 
@@ -21,21 +20,19 @@ public class UserToShopkeeperTransferUseCase
     private readonly ITransferRepository _transferRepository;
     private readonly SelectUserUseCase _selectUser;
     private readonly SelectShopKeeperUseCase _selectShopkeeper;
-    private readonly INofificationSender _notificationSender;
     private readonly CreateTransactionEntityUseCase _createTransaction;
-    private readonly ILogger<UserToShopkeeperTransferUseCase> logger;
+    private readonly IMediator _mediator;
 
     /// <summary>
     /// Injects dependencies
     /// </summary>
-    public UserToShopkeeperTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, SelectShopKeeperUseCase selectShopkeeper, INofificationSender notificationSender, CreateTransactionEntityUseCase createTransaction, ILogger<UserToShopkeeperTransferUseCase> logger)
+    public UserToShopkeeperTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, SelectShopKeeperUseCase selectShopkeeper, CreateTransactionEntityUseCase createTransaction, IMediator mediator)
     {
         _transferRepository = transferRepository;
         _selectUser = selectUser;
         _selectShopkeeper = selectShopkeeper;
-        _notificationSender = notificationSender;
         _createTransaction = createTransaction;
-        this.logger = logger;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -44,6 +41,29 @@ public class UserToShopkeeperTransferUseCase
     /// <param name="dto">The data transfer object containing the details of the User to be created.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task Execute(UserToShopKeeperTransfer dto)
+    {
+        try
+        {
+            await Run(dto);
+
+            await _mediator.Publish(new NewTransactionEvent
+            {
+                OriginatorEmail = dto.From,
+                TargetEmail = dto.To,
+                Amount = dto.Ammount
+            });
+        }
+        catch (Exception)
+        {
+            // TODO: Notify a Fail in Transfer.
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Effectively run the logic
+    /// </summary>
+    public async Task Run(UserToShopKeeperTransfer dto)
     {
         var (from, to) = await GetTransferingUsers(dto);
 
@@ -58,13 +78,6 @@ public class UserToShopkeeperTransferUseCase
         };
 
         await _transferRepository.UserToShopkeeperTransfer(transation.ToModel());
-
-        await Notify(dto);
-    }
-
-    private async Task Notify(UserToShopKeeperTransfer dto)
-    {
-        await _notificationSender.TrySendNotifications(new(dto.From, dto.From, dto.To, dto.Ammount));
     }
 
     /// <summary>
