@@ -5,10 +5,8 @@ using Picpay.Domain.Features.Transfer.Entities;
 
 namespace Picpay.Infra.Database.EF.Contexts;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
 {
-    public ApplicationDbContext(DbContextOptions options) : base(options) { }
-
     public DbSet<User> Users { get; set; } = default!;
     public DbSet<ShopKeeper> ShopKeepers { get; set; } = default!;
     public DbSet<TransactionEntity> Transations { get; set; } = default!;

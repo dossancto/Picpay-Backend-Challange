@@ -7,13 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Picpay.Infra.Database.EF.Repositories;
 
-public class EFShopKeeperRepository : IShopKeeperRepository
+public class EFShopKeeperRepository(ApplicationDbContext _context) : IShopKeeperRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public EFShopKeeperRepository(ApplicationDbContext context)
-    => _context = context;
-
     public async Task<List<ShopKeeper>> All()
       => await _context.ShopKeepers
                        .AsNoTrackingWithIdentityResolution()

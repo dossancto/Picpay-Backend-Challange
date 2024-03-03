@@ -9,17 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Picpay.Infra.Database.EF.Repositories;
 
-public class EFTransferRepository : ITransferRepository
+public class EFTransferRepository
+(
+    ApplicationDbContext _context,
+    ITransactionEntityRepository _transactionEntityRepository)
+: ITransferRepository
 {
-    private readonly ApplicationDbContext _context;
-    private readonly ITransactionEntityRepository _transactionEntityRepository;
-
-    public EFTransferRepository(ApplicationDbContext context, ITransactionEntityRepository transactionEntityRepository)
-    {
-        _context = context;
-        _transactionEntityRepository = transactionEntityRepository;
-    }
-
     public async Task UserToShopkeeperTransfer(TransactionEntity entity)
     {
         using var transaction = _context.Database.BeginTransaction();

@@ -7,13 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Picpay.Infra.Database.EF.Repositories;
 
-public class EFUserRepository : IUserRepository
+public class EFUserRepository
+(ApplicationDbContext _context)
+: IUserRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public EFUserRepository(ApplicationDbContext context)
-    => _context = context;
-
     public async Task<List<User>> All()
       => await _context.Users
                        .AsNoTrackingWithIdentityResolution()

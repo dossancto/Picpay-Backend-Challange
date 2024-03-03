@@ -7,13 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Picpay.Infra.Database.EF.Repositories;
 
-public class EFTransactionEntityRepository : ITransactionEntityRepository
+public class EFTransactionEntityRepository(ApplicationDbContext _context) : ITransactionEntityRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public EFTransactionEntityRepository(ApplicationDbContext context)
-    => _context = context;
-
     public async Task<List<TransactionEntity>> All()
       => await _context.Transations
                        .AsNoTrackingWithIdentityResolution()
