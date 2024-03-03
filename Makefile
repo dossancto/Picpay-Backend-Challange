@@ -1,3 +1,11 @@
+watch/run:
+	dotnet watch run --project Picpay.UI 
+run:
+	dotnet run --project Picpay.UI 
+
+test:
+	dotnet test
+
 compose/up:
 	docker compose up -d
 
@@ -13,8 +21,3 @@ db/setup/test:
 env/setup:
 	cp .env.example .env
 
-run:
-	dotnet run --project Picpay.UI 
-
-test:
-	dotnet test
