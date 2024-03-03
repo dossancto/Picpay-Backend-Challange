@@ -15,4 +15,6 @@ COPY --from=build /out ./
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "Picpay.UI.dll"]
+
+EXPOSE $PORT
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet Picpay.UI.dll
