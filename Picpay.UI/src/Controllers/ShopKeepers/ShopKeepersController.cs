@@ -9,19 +9,9 @@ namespace Picpay.UI.Controllers.ShopKeepers;
 /// </summary>
 [ApiController]
 [Route("[controller]")]
-public partial class ShopKeepersController : ControllerBase
-{
-    private readonly CreateShopKeeperUseCase _createShopKeeper;
-    private readonly DeleteShopKeeperUseCase _deleteShopKeeper;
-    private readonly SelectShopKeeperUseCase _selectShopKeeper;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ShopKeepersController"/> class.
-    /// </summary>
-    public ShopKeepersController(SelectShopKeeperUseCase selectShopKeeper, DeleteShopKeeperUseCase deleteShopKeeper, CreateShopKeeperUseCase createShopKeeper)
-    {
-        _selectShopKeeper = selectShopKeeper;
-        _deleteShopKeeper = deleteShopKeeper;
-        _createShopKeeper = createShopKeeper;
-    }
-}
+public partial class ShopKeepersController
+(SelectShopKeeperUseCase _selectShopKeeper,
+ DeleteShopKeeperUseCase _deleteShopKeeper,
+ CreateShopKeeperUseCase _createShopKeeper)
+: ControllerBase
+;
