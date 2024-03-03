@@ -1,6 +1,6 @@
 # Picpay Backend challange
 
-Picpay backend challange
+Picpay backend challange - [Try it out](https://picpay-backend-challange.onrender.com/swagger)
 
 ![picpay](https://github.com/lu-css/Picpay-Backend-Challange/assets/97306254/52152802-0d3d-48da-82f7-539b4422e422)
 
