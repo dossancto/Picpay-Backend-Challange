@@ -6,11 +6,11 @@ using Picpay.Domain.Features.Transfer.Exceptions;
 using Picpay.Domain.Features.Transfer.Enums;
 
 using Picpay.Adapters.Authorization;
-using Picpay.Application.Features.Transfer.Data;
 using Picpay.Application.Features.Users.UseCases;
 using MediatR;
 using Picpay.Application.EventHandlers.Notifications.Transfer;
 using Picpay.Domain.Utils;
+using Picpay.Application.Features.Users.Data;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
 
@@ -18,10 +18,13 @@ namespace Picpay.Application.Features.Transfer.UseCases;
 /// This class is responsible for transferring a balance from a user to another
 /// </summary>
 public class UserToUserTransferUseCase
-(ITransferRepository _transferRepository,
+(
  SelectUserUseCase _selectUser,
+ IUserRepository _userRepository,
  IPaymentAuthorization _paymentAuthorization,
- IMediator _mediator)
+ IMediator _mediator,
+ IUnitOfWork _uow
+ )
   : IUseCase
 {
     /// <summary>
@@ -31,43 +34,49 @@ public class UserToUserTransferUseCase
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task Execute(UserToUserTransfer dto)
     {
-        try
+        var work = async () =>
         {
-            await Run(dto);
-
-            await _mediator.Publish(new NewTransactionEvent
+            try
             {
-                OriginatorEmail = dto.From,
-                TargetEmail = dto.To,
-                Amount = dto.Ammount
-            });
-        }
-        catch (Exception)
-        {
-            // TODO: Notify a Fail in Transfer.
-            throw;
-        }
+                var (from, to) = await GetTransferingUsers(dto);
+
+                await AssertCanTransfer(from, dto);
+
+                var transation = new CreateTransactionEntity
+                {
+                    Sender = from.Id,
+                    Receiver = to.Id,
+                    Ammount = dto.Ammount,
+                    EventType = TransactionEventType.Payment
+                };
+
+                await Run(transation);
+
+                await _mediator.Publish(new NewTransactionEvent
+                {
+                    OriginatorEmail = dto.From,
+                    TargetEmail = dto.To,
+                    Amount = dto.Ammount
+                });
+            }
+            catch (Exception)
+            {
+                // TODO: Notify a Fail in Transfer.
+                throw;
+            }
+        };
+
+        await _uow.Sandbox(work);
     }
 
     /// <summary>
     /// Effectively run the logic
     /// </summary>
-    /// <param name="dto">The data transfer object containing the details of the User to be created.</param>
-    public async Task Run(UserToUserTransfer dto)
+    /// <param name="transation">The data transfer object containing the details of the User to be created.</param>
+    public async Task Run(CreateTransactionEntity transation)
     {
-        var (from, to) = await GetTransferingUsers(dto);
-
-        await AssertCanTransfer(from, dto);
-
-        var transation = new CreateTransactionEntity
-        {
-            Sender = from.Id,
-            Receiver = to.Id,
-            Ammount = dto.Ammount,
-            EventType = TransactionEventType.Payment
-        };
-
-        await _transferRepository.UserToUserTransfer(transation.ToModel());
+        await _userRepository.AddAmmount(transation.Sender, -transation.Ammount);
+        await _userRepository.AddAmmount(transation.Receiver, transation.Ammount);
     }
 
     /// <summary>

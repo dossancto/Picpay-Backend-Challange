@@ -4,6 +4,7 @@ using Picpay.Infra.Database.EF.Contexts;
 
 using NanoidDotNet;
 using Microsoft.EntityFrameworkCore;
+using Picpay.Domain.Features.Transfer.Exceptions;
 
 namespace Picpay.Infra.Database.EF.Repositories;
 
@@ -61,5 +62,23 @@ public class EFUserRepository
         await _context.SaveChangesAsync();
 
         return updatedPlayer.Entity;
+    }
+
+    public async Task AddAmmount(string id, decimal ammount)
+    {
+        var entity = await _context.Users
+                  .Where(x => x.Id == id)
+                  .ExecuteUpdateAsync(s =>
+                      s.SetProperty(
+                        p => p.Balance,
+                        p => p.Balance + ammount
+                        ));
+
+        if (entity != 1)
+        {
+            throw new TransferException("Fail while updating balance");
+        }
+
+        await _context.SaveChangesAsync();
     }
 }

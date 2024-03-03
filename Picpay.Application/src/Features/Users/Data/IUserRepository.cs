@@ -45,4 +45,9 @@ public interface IUserRepository
     /// Delete a User
     /// </summary>
     Task Delete(string id);
+
+    /// <summary>
+    /// Change the User Balance
+    /// </summary>
+    Task AddAmmount(string id, decimal ammount);
 }
