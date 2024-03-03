@@ -11,26 +11,13 @@ namespace Picpay.Application.Features.Users.UseCases;
 /// <summary>
 /// This class is responsible for creating a User using a given repository.
 /// </summary>
-public class CreateUserUseCase: IUseCase
+public class CreateUserUseCase
+(IUserRepository _userRepository,
+ ICryptographys _cryptographys,
+ IValidator<CreteAccount> _createAccountValidator)
+: IUseCase
 {
-    private readonly IUserRepository _userRepository;
-    private readonly ICryptographys _cryptographys;
-    private readonly IValidator<CreteAccount> _createAccountValidator;
-
     private const decimal INITIAL_CASH = 250m;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CreateUserUseCase"/> class.
-    /// </summary>
-    /// <param name="UserRepository">The User repository.</param>
-    /// <param name="cryptographys">The cryptographys algorithm.</param>
-    /// <param name="createAccountValidator">Validator for creating a new account</param>
-    public CreateUserUseCase(IUserRepository UserRepository, ICryptographys cryptographys, IValidator<CreteAccount> createAccountValidator)
-    {
-        _userRepository = UserRepository;
-        _cryptographys = cryptographys;
-        _createAccountValidator = createAccountValidator;
-    }
 
     /// <summary>
     /// Executes the creation of a User.

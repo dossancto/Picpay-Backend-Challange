@@ -6,19 +6,10 @@ namespace Picpay.Application.Features.Users.UseCases;
 /// <summary>
 /// This class encapsulates the use case of deleting a User.
 /// </summary>
-public class DeleteUserUseCase : IUseCase
+public class DeleteUserUseCase
+(IUserRepository _UserRepository)
+: IUseCase
 {
-    private readonly IUserRepository _UserRepository;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DeleteUserUseCase"/> class.
-    /// </summary>
-    /// <param name="UserRepository">The User repository.</param>
-    public DeleteUserUseCase(IUserRepository UserRepository)
-    {
-        _UserRepository = UserRepository;
-    }
-
     /// <summary>
     /// Deletes a User by its unique identifier.
     /// </summary>

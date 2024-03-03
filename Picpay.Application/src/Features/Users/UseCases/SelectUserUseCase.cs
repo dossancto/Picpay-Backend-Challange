@@ -8,19 +8,10 @@ namespace Picpay.Application.Features.Users.UseCases;
 /// <summary>
 /// This class is responsible getting data from Users
 /// </summary>
-public class SelectUserUseCase : IUseCase
+public class SelectUserUseCase
+(IUserRepository _UserRepository)
+  : IUseCase
 {
-    private readonly IUserRepository _UserRepository;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SelectUserUseCase"/> class.
-    /// </summary>
-    /// <param name="UserRepository">The User repository.</param>
-    public SelectUserUseCase(IUserRepository UserRepository)
-    {
-        _UserRepository = UserRepository;
-    }
-
     /// <summary>
     /// Retrieves a note by its unique identifier.
     /// </summary>

@@ -16,26 +16,14 @@ namespace Picpay.Application.Features.Transfer.UseCases;
 /// <summary>
 /// This class is responsible for transferring a balance from a user to another
 /// </summary>
-public class UserToShopkeeperTransferUseCase : IUseCase
+public class UserToShopkeeperTransferUseCase
+(ITransferRepository _transferRepository,
+ SelectUserUseCase _selectUser,
+ SelectShopKeeperUseCase _selectShopkeeper,
+ CreateTransactionEntityUseCase _createTransaction,
+ IMediator _mediator)
+  : IUseCase
 {
-    private readonly ITransferRepository _transferRepository;
-    private readonly SelectUserUseCase _selectUser;
-    private readonly SelectShopKeeperUseCase _selectShopkeeper;
-    private readonly CreateTransactionEntityUseCase _createTransaction;
-    private readonly IMediator _mediator;
-
-    /// <summary>
-    /// Injects dependencies
-    /// </summary>
-    public UserToShopkeeperTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, SelectShopKeeperUseCase selectShopkeeper, CreateTransactionEntityUseCase createTransaction, IMediator mediator)
-    {
-        _transferRepository = transferRepository;
-        _selectUser = selectUser;
-        _selectShopkeeper = selectShopkeeper;
-        _createTransaction = createTransaction;
-        _mediator = mediator;
-    }
-
     /// <summary>
     /// Executes a transfer from a user to another.
     /// </summary>

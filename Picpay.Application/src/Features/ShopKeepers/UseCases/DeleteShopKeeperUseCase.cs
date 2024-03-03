@@ -6,19 +6,9 @@ namespace Picpay.Application.Features.ShopKeepers.UseCases;
 /// <summary>
 /// This class encapsulates the use case of deleting a ShopKeeper.
 /// </summary>
-public class DeleteShopKeeperUseCase : IUseCase
+public class DeleteShopKeeperUseCase
+(IShopKeeperRepository _ShopKeeperRepository) : IUseCase
 {
-    private readonly IShopKeeperRepository _ShopKeeperRepository;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DeleteShopKeeperUseCase"/> class.
-    /// </summary>
-    /// <param name="ShopKeeperRepository">The ShopKeeper repository.</param>
-    public DeleteShopKeeperUseCase(IShopKeeperRepository ShopKeeperRepository)
-    {
-        _ShopKeeperRepository = ShopKeeperRepository;
-    }
-
     /// <summary>
     /// Deletes a ShopKeeper by its unique identifier.
     /// </summary>

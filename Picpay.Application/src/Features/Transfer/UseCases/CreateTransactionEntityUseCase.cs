@@ -8,19 +8,10 @@ namespace Picpay.Application.Features.Transfer.UseCases;
 /// <summary>
 /// This class is responsible for creating a TransactionEntity using a given repository.
 /// </summary>
-public class CreateTransactionEntityUseCase : IUseCase
+public class CreateTransactionEntityUseCase
+(ITransactionEntityRepository _TransactionEntityRepository)
+  : IUseCase
 {
-    private readonly ITransactionEntityRepository _TransactionEntityRepository;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CreateTransactionEntityUseCase"/> class.
-    /// </summary>
-    /// <param name="TransactionEntityRepository">The TransactionEntity repository.</param>
-    public CreateTransactionEntityUseCase(ITransactionEntityRepository TransactionEntityRepository)
-    {
-        _TransactionEntityRepository = TransactionEntityRepository;
-    }
-
     /// <summary>
     /// Executes the creation of a TransactionEntity.
     /// </summary>

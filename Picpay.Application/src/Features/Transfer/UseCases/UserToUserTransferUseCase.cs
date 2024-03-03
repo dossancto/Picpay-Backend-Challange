@@ -5,9 +5,7 @@ using Picpay.Domain.Exceptions;
 using Picpay.Domain.Features.Transfer.Exceptions;
 using Picpay.Domain.Features.Transfer.Enums;
 
-using Microsoft.Extensions.Logging;
 using Picpay.Adapters.Authorization;
-using Picpay.Adapters.Notification;
 using Picpay.Application.Features.Transfer.Data;
 using Picpay.Application.Features.Users.UseCases;
 using MediatR;
@@ -19,28 +17,13 @@ namespace Picpay.Application.Features.Transfer.UseCases;
 /// <summary>
 /// This class is responsible for transferring a balance from a user to another
 /// </summary>
-public class UserToUserTransferUseCase : IUseCase
+public class UserToUserTransferUseCase
+(ITransferRepository _transferRepository,
+ SelectUserUseCase _selectUser,
+ IPaymentAuthorization _paymentAuthorization,
+ IMediator _mediator)
+  : IUseCase
 {
-    private readonly ITransferRepository _transferRepository;
-    private readonly SelectUserUseCase _selectUser;
-    private readonly IPaymentAuthorization _paymentAuthorization;
-    private readonly INofificationSender _notificationSender;
-    private readonly ILogger<UserToUserTransferUseCase> logger;
-    private readonly IMediator _mediator;
-
-    /// <summary>
-    /// Injects dependencies
-    /// </summary>
-    public UserToUserTransferUseCase(ITransferRepository transferRepository, SelectUserUseCase selectUser, IPaymentAuthorization paymentAuthorization, INofificationSender notificationSender, ILogger<UserToUserTransferUseCase> logger, IMediator mediator)
-    {
-        _transferRepository = transferRepository;
-        _selectUser = selectUser;
-        _paymentAuthorization = paymentAuthorization;
-        _notificationSender = notificationSender;
-        this.logger = logger;
-        _mediator = mediator;
-    }
-
     /// <summary>
     /// Executes a transfer from a user to another.
     /// </summary>

@@ -11,21 +11,11 @@ namespace Picpay.Application.Features.ShopKeepers.UseCases;
 /// <summary>
 /// This class is responsible for creating a ShopKeeper using a given repository.
 /// </summary>
-public class CreateShopKeeperUseCase : IUseCase
+public class CreateShopKeeperUseCase
+(IShopKeeperRepository _shopKeeperRepository, ICryptographys _cryptographys)
+: IUseCase
 {
-    private readonly IShopKeeperRepository _shopKeeperRepository;
-    private readonly ICryptographys _cryptographys;
-
     private const decimal INITIAL_CASH = 1500;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CreateShopKeeperUseCase"/> class.
-    /// </summary>
-    public CreateShopKeeperUseCase(IShopKeeperRepository ShopKeeperRepository, ICryptographys cryptographys)
-    {
-        _shopKeeperRepository = ShopKeeperRepository;
-        _cryptographys = cryptographys;
-    }
 
     /// <summary>
     /// Executes the creation of a ShopKeeper.
