@@ -45,4 +45,9 @@ public interface IShopKeeperRepository
     /// <param name="contact">The contact to search, Email, CPF or Id</param>
     /// <returns>The search result or null, if not found</returns>
     Task<ShopKeeper?> ByContact(string contact);
+
+    /// <summary>
+    /// Change the ShopKeeper Balance
+    /// </summary>
+    Task AddAmmount(string id, decimal ammount);
 }
