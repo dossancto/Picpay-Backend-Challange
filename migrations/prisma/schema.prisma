@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ShopKeepers {
+  Id             String  @id(map: "PK_ShopKeepers") @db.VarChar(40)
+  Fullname       String  @db.VarChar(128)
+  Email          String  @unique(map: "IX_ShopKeepers_Email") @db.VarChar(255)
+  CPF            String  @unique(map: "IX_ShopKeepers_CPF") @db.VarChar(11)
+  HashedPassword String  @db.VarChar(128)
+  Salt           String  @db.VarChar(128)
+  Balance        Decimal @db.Decimal
+}
+
+model Transations {
+  Id        String   @id(map: "PK_Transations") @db.VarChar(40)
+  Ammount   Decimal  @db.Decimal
+  Sender    String
+  Receiver  String
+  EventType Int
+  CreatedAt DateTime @db.Timestamptz(6)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model Users {
+  Id             String  @id(map: "PK_Users") @db.VarChar(40)
+  Fullname       String  @db.VarChar(128)
+  Email          String  @unique(map: "IX_Users_Email") @db.VarChar(255)
+  CPF            String  @unique(map: "IX_Users_CPF") @db.VarChar(11)
+  HashedPassword String  @db.VarChar(128)
+  Salt           String  @db.VarChar(128)
+  Balance        Decimal @db.Decimal
+}
