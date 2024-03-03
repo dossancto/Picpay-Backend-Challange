@@ -6,10 +6,7 @@ public static class UseCasesInjection
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services)
       => services
-                .AddUserUseCases()
-                .AddTransferUseCases()
-                .AddTransactionUseCases()
-                .AddShopKeeperUseCases()
+      .AddUseCasesFromAssemblyContaining<Application.Application>()
                 ;
 }
 

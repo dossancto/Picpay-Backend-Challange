@@ -9,13 +9,14 @@ using Picpay.Application.Features.Transfer.Data;
 using Picpay.Application.Features.Users.UseCases;
 using MediatR;
 using Picpay.Application.EventHandlers.Notifications.Transfer;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
 
 /// <summary>
 /// This class is responsible for transferring a balance from a user to another
 /// </summary>
-public class UserToShopkeeperTransferUseCase
+public class UserToShopkeeperTransferUseCase : IUseCase
 {
     private readonly ITransferRepository _transferRepository;
     private readonly SelectUserUseCase _selectUser;

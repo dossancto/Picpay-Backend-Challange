@@ -1,11 +1,12 @@
 using Picpay.Application.Features.ShopKeepers.Data;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.ShopKeepers.UseCases;
 
 /// <summary>
 /// This class encapsulates the use case of deleting a ShopKeeper.
 /// </summary>
-public class DeleteShopKeeperUseCase
+public class DeleteShopKeeperUseCase : IUseCase
 {
     private readonly IShopKeeperRepository _ShopKeeperRepository;
 

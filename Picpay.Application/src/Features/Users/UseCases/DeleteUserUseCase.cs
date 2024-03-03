@@ -1,11 +1,12 @@
 using Picpay.Application.Features.Users.Data;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.Users.UseCases;
 
 /// <summary>
 /// This class encapsulates the use case of deleting a User.
 /// </summary>
-public class DeleteUserUseCase
+public class DeleteUserUseCase : IUseCase
 {
     private readonly IUserRepository _UserRepository;
 

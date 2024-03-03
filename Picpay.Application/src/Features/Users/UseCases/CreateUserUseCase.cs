@@ -4,13 +4,14 @@ using Picpay.Adapters.Cryptographies;
 using Picpay.Application.Features.Accounts.UseCases;
 using FluentValidation;
 using Picpay.Application.Utils.Validation;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.Users.UseCases;
 
 /// <summary>
 /// This class is responsible for creating a User using a given repository.
 /// </summary>
-public class CreateUserUseCase
+public class CreateUserUseCase: IUseCase
 {
     private readonly IUserRepository _userRepository;
     private readonly ICryptographys _cryptographys;

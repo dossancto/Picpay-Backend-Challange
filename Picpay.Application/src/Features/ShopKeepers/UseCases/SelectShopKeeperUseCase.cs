@@ -1,12 +1,13 @@
 using Picpay.Application.Features.ShopKeepers.Data;
 using Picpay.Domain.Features.Mercant.Entities;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.ShopKeepers.UseCases;
 
 /// <summary>
 /// This class is responsible getting data from ShopKeepers
 /// </summary>
-public class SelectShopKeeperUseCase
+public class SelectShopKeeperUseCase : IUseCase
 {
     private readonly IShopKeeperRepository _ShopKeeperRepository;
 

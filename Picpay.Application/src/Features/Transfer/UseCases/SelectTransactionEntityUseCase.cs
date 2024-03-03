@@ -1,12 +1,13 @@
 using Picpay.Application.Features.Transfer.Data;
 using Picpay.Domain.Features.Transfer.Entities;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
 
 /// <summary>
 /// This class is responsible getting data from TransactionEntitys
 /// </summary>
-public class SelectTransactionEntityUseCase
+public class SelectTransactionEntityUseCase : IUseCase
 {
     private readonly ITransactionEntityRepository _TransactionEntityRepository;
 

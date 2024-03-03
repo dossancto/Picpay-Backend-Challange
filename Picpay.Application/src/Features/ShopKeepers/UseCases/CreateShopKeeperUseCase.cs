@@ -4,13 +4,14 @@ using Picpay.Domain.Features.Mercant.Entities;
 
 using Picpay.Application.Features.Accounts.UseCases;
 using Picpay.Application.Features.ShopKeepers.Data;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.ShopKeepers.UseCases;
 
 /// <summary>
 /// This class is responsible for creating a ShopKeeper using a given repository.
 /// </summary>
-public class CreateShopKeeperUseCase
+public class CreateShopKeeperUseCase : IUseCase
 {
     private readonly IShopKeeperRepository _shopKeeperRepository;
     private readonly ICryptographys _cryptographys;

@@ -1,13 +1,14 @@
 using Picpay.Application.Features.Transfer.Data;
 using Picpay.Domain.Features.Transfer.Entities;
 using Picpay.Domain.Features.Transfer.Enums;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.Transfer.UseCases;
 
 /// <summary>
 /// This class is responsible for creating a TransactionEntity using a given repository.
 /// </summary>
-public class CreateTransactionEntityUseCase
+public class CreateTransactionEntityUseCase : IUseCase
 {
     private readonly ITransactionEntityRepository _TransactionEntityRepository;
 

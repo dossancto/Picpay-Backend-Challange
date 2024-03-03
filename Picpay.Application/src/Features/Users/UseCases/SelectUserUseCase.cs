@@ -1,13 +1,14 @@
 using Picpay.Domain.Exceptions;
 using Picpay.Application.Features.Users.Data;
 using Picpay.Domain.Features.Users.Entities;
+using Picpay.Domain.Utils;
 
 namespace Picpay.Application.Features.Users.UseCases;
 
 /// <summary>
 /// This class is responsible getting data from Users
 /// </summary>
-public class SelectUserUseCase
+public class SelectUserUseCase : IUseCase
 {
     private readonly IUserRepository _UserRepository;
 
